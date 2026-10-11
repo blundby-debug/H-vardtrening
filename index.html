@@ -7,7 +7,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0d0d10">
 <title>Håvard — Trening</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230d0d10'/%3E%3Ctext x='90' y='118' font-size='90' text-anchor='middle' fill='%23c8f135' font-family='sans-serif' font-weight='bold'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="ikon-180.png">
+<link rel="icon" href="ikon-192.png">
+<link rel="manifest" href="manifest.json">
 <style>
 :root{
 --bg:#0d0d10;--surface:#17171c;--surface2:#1f1f26;--surface3:#282830;
@@ -33,7 +35,8 @@ input,button,select{font-family:inherit}
 .icn-btn:active{background:var(--surface3)}
 
 /* TABS */
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:14px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:14px}
+.tab-n{font-size:11px!important}
 .tab{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:9px 4px;text-align:center;cursor:pointer;transition:.12s}
 .tab.on{border-color:var(--accent);background:rgba(200,241,53,.07)}
 .tab-n{font-size:12px;font-weight:600;color:var(--text)}
@@ -66,6 +69,7 @@ input,button,select{font-family:inherit}
 
 /* SECTION */
 .slabel{font-size:10px;font-family:var(--mono);letter-spacing:.12em;color:var(--text3);margin:16px 0 7px;padding-left:8px;border-left:2px solid var(--accent)}
+.freenote{font-size:12px;line-height:1.45;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:4px}
 
 /* EXERCISE */
 .ex{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:7px;overflow:hidden}
@@ -202,39 +206,38 @@ textarea.imp{width:100%;height:120px;background:var(--surface2);border:1px solid
 const K='hv:';
 const DAYS=[
  {id:'tA',label:'Torso A',day:'Man',ex:[
-  {n:'Benkpress',s:'4×5-6',main:1,sets:4,rest:180,inc:2.5,lo:5,hi:6},
+  {n:'Benkpress',s:'3×5-6',main:1,sets:3,rest:180,inc:2.5,lo:5,hi:6},
   {n:'Stående skulderpress',s:'3×5-8',main:1,sets:3,rest:180,inc:2.5,lo:5,hi:8},
-  {n:'Sittende kabelro',s:'3×8-12',main:0,sets:3,rest:90,inc:5,lo:8,hi:12},
-  {n:'Lat pulldown',s:'3×8-12',main:0,sets:3,rest:90,inc:5,lo:8,hi:12},
-  {n:'Kabel flyes',s:'3×12-15',main:0,sets:3,rest:75,inc:2.5,lo:12,hi:15},
-  {n:'Face pull',s:'3×15-20',main:0,sets:3,rest:60,inc:2.5,lo:15,hi:20},
-  {n:'Triceps pushdown',s:'3×10-12',main:0,sets:3,rest:75,inc:2.5,lo:10,hi:12},
+  {n:'Sittende kabelro',s:'2×8-12',main:0,sets:2,rest:90,inc:5,lo:8,hi:12},
+  {n:'Lat pulldown',s:'2×8-12',main:0,sets:2,rest:90,inc:5,lo:8,hi:12},
+  {n:'Triceps pushdown',s:'2×10-12',main:0,sets:2,rest:75,inc:2.5,lo:10,hi:12},
  ]},
  {id:'lA',label:'Limbs A',day:'Tir',ex:[
-  {n:'Knebøy',s:'4×5-6',main:1,sets:4,rest:210,inc:5,lo:5,hi:6},
-  {n:'Rumensk markløft',s:'3×8-10',main:0,sets:3,rest:150,inc:5,lo:8,hi:10},
-  {n:'Leg press',s:'3×10-12',main:0,sets:3,rest:120,inc:10,lo:10,hi:12},
-  {n:'Leg curl',s:'3×10-12',main:0,sets:3,rest:90,inc:5,lo:10,hi:12},
-  {n:'Stående tåhev',s:'4×12-15',main:0,sets:4,rest:60,inc:5,lo:12,hi:15},
-  {n:'Biceps curl (stang)',s:'3×10-12',main:0,sets:3,rest:75,inc:2.5,lo:10,hi:12},
-  {n:'Hammer curl',s:'3×10-12',main:0,sets:3,rest:75,inc:2,lo:10,hi:12},
+  {n:'Knebøy',s:'3×5-6',main:1,sets:3,rest:210,inc:5,lo:5,hi:6},
+  {n:'Rumensk markløft',s:'2×8-10',main:0,sets:2,rest:150,inc:5,lo:8,hi:10},
+  {n:'Leg press',s:'2×10-12',main:0,sets:2,rest:120,inc:10,lo:10,hi:12},
+  {n:'Stående tåhev',s:'2×12-15',main:0,sets:2,rest:60,inc:5,lo:12,hi:15},
+  {n:'Biceps curl (stang)',s:'2×10-12',main:0,sets:2,rest:75,inc:2.5,lo:10,hi:12},
  ]},
  {id:'tB',label:'Torso B',day:'Tor',ex:[
   {n:'Incline benkpress',s:'3×6-8',main:1,sets:3,rest:180,inc:2.5,lo:6,hi:8},
   {n:'Hantel skulderpress',s:'3×8-10',main:1,sets:3,rest:150,inc:2,lo:8,hi:10},
-  {n:'Strak-arm pulldown',s:'3×10-12',main:0,sets:3,rest:75,inc:2.5,lo:10,hi:12},
-  {n:'Seated row (bred)',s:'3×8-12',main:0,sets:3,rest:90,inc:5,lo:8,hi:12},
-  {n:'Lateral raises',s:'4×12-15',main:0,sets:4,rest:60,inc:2,lo:12,hi:15},
-  {n:'Rear delt flyes',s:'3×12-15',main:0,sets:3,rest:60,inc:2,lo:12,hi:15},
-  {n:'Skulderrotasjon (kabel)',s:'2×15',main:0,sets:2,rest:45,inc:1,lo:15,hi:15},
+  {n:'Seated row (bred)',s:'2×8-12',main:0,sets:2,rest:90,inc:5,lo:8,hi:12},
+  {n:'Lateral raises',s:'2×12-15',main:0,sets:2,rest:60,inc:2,lo:12,hi:15},
+  {n:'Rear delt flyes',s:'2×12-15',main:0,sets:2,rest:60,inc:2,lo:12,hi:15},
  ]},
- {id:'lB',label:'Limbs B',day:'Lør',ex:[
+ {id:'lB',label:'Limbs B',day:'Fre',ex:[
   {n:'Markløft',s:'3×4-6',main:1,sets:3,rest:240,inc:5,lo:4,hi:6},
-  {n:'Bulgarian split squat',s:'3×8-10',main:0,sets:3,rest:120,inc:2.5,lo:8,hi:10},
-  {n:'Lying leg curl',s:'3×10-12',main:0,sets:3,rest:90,inc:5,lo:10,hi:12},
-  {n:'Sittende tåhev',s:'4×15-20',main:0,sets:4,rest:60,inc:5,lo:15,hi:20},
-  {n:'Biceps curl (hantel)',s:'3×10-12',main:0,sets:3,rest:75,inc:2,lo:10,hi:12},
-  {n:'EZ-bar curl',s:'3×8-10',main:0,sets:3,rest:75,inc:2.5,lo:8,hi:10},
+  {n:'Bulgarian split squat',s:'2×8-10',main:0,sets:2,rest:120,inc:2.5,lo:8,hi:10},
+  {n:'Lying leg curl',s:'2×10-12',main:0,sets:2,rest:90,inc:5,lo:10,hi:12},
+  {n:'Sittende tåhev',s:'2×15-20',main:0,sets:2,rest:60,inc:5,lo:15,hi:20},
+  {n:'Hammer curl',s:'2×10-12',main:0,sets:2,rest:75,inc:2,lo:10,hi:12},
+ ]},
+ {id:'base',label:'Baseløft',day:'Lør',free:1,ex:[
+  {n:'Benkpress',s:'topp 1-3',main:1,sets:3,rest:240,inc:2.5,lo:1,hi:3},
+  {n:'Knebøy',s:'topp 1-3',main:1,sets:3,rest:240,inc:5,lo:1,hi:3},
+  {n:'Markløft',s:'topp 1-3',main:1,sets:3,rest:300,inc:5,lo:1,hi:3},
+  {n:'Stående skulderpress',s:'topp 1-3',main:1,sets:3,rest:180,inc:2.5,lo:1,hi:3},
  ]},
 ];
 const PRESETS=[45,60,75,90,120,150,180,210,240];
@@ -294,6 +297,13 @@ function lastSession(dayId,exN){
 }
 function progressionAdvice(ex,dayId){
  const last=lastSession(dayId,ex.n);
+ if(DAYS[cur]&&DAYS[cur].free){
+  if(!last)return{cls:'none',txt:'Fri tung dag — jobb opp til en tung topp-single/trippel'};
+  const v=last.filter(s=>s.w&&s.r);
+  if(!v.length)return{cls:'none',txt:'Fri tung dag — jobb opp til tung topp'};
+  const best=v.reduce((b,s)=>parseFloat(s.w)>b.w?{w:parseFloat(s.w),r:parseInt(s.r)}:b,{w:0,r:0});
+  return{cls:'up',txt:`PR å slå: ${best.w} kg × ${best.r} — slå vekt eller reps`};
+ }
  if(!last)return{cls:'none',txt:'Første økt — finn arbeidsvekt'};
  const valid=last.filter(s=>s.w&&s.r);
  if(!valid.length)return{cls:'none',txt:'Ingen data forrige gang'};
@@ -330,10 +340,15 @@ function switchDay(i){cur=i;open={};hOpen={};loadDraft();renderTabs()}
 
 function renderEx(){
  const d=DAYS[cur];
- const m=d.ex.filter(e=>e.main),su=d.ex.filter(e=>!e.main);
  let h='';
- if(m.length){h+='<div class="slabel">GRUNNØVELSER</div>'+m.map(e=>card(e,d.id)).join('')}
- if(su.length){h+='<div class="slabel">STØTTEØVELSER</div>'+su.map(e=>card(e,d.id)).join('')}
+ if(d.free){
+  h+='<div class="freenote">Fri tung dag — velg selv. Varm opp, jobb deg opp til 1-3 tunge topp-sett per løft og prøv å slå forrige PR (vekt eller reps). Hopp over løft du ikke vil kjøre.</div>';
+  h+='<div class="slabel">BASELØFT</div>'+d.ex.map(e=>card(e,d.id)).join('');
+ } else {
+  const m=d.ex.filter(e=>e.main),su=d.ex.filter(e=>!e.main);
+  if(m.length){h+='<div class="slabel">GRUNNØVELSER</div>'+m.map(e=>card(e,d.id)).join('')}
+  if(su.length){h+='<div class="slabel">STØTTEØVELSER</div>'+su.map(e=>card(e,d.id)).join('')}
+ }
  document.getElementById('exList').innerHTML=h;
 }
 
@@ -497,7 +512,7 @@ function fmtD(d){if(!d)return'';const[y,m,dd]=d.split('-');return`${dd}.${m}.${y
 /* ---------- boot ---------- */
 (function(){
  const wd=new Date().getDay();
- const map={1:0,2:1,4:2,6:3};
+ const map={1:0,2:1,4:2,5:3,6:4};
  if(map[wd]!==undefined)cur=map[wd];
  const now=new Date();
  document.getElementById('dateIn').value=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().split('T')[0];
